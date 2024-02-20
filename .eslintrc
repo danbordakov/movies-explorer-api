@@ -6,7 +6,6 @@
     "extends": [
         "eslint:recommended",
         "airbnb-base"
-        // "prettier"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",

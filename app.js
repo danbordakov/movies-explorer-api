@@ -2,15 +2,15 @@ const express = require("express");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const movieRouter = require("./routes/movies");
-const userRouter = require("./routes/users");
+const router = require("./routes/index")
 const { createUser, login, logout } = require("./controllers/users");
 const auth = require("./middlewares/auth");
+const errorHandler = require("./modules/errorHandler")
 require("dotenv").config();
 const NotFoundError = require("./errors/not-found-error");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const { loginValidation, createUserValidation } = require("./modules/validation");
-const limiter = require("./middlewares/rateLimit")
+const limiter = require("./middlewares/rateLimit");
 
 const { PORT = 3000, DB_PATH = "mongodb://127.0.0.1:27017/bitfilmsdb" } = process.env;
 
@@ -31,22 +31,14 @@ app.post("/signup", createUserValidation, createUser);
 app.post("/signin", loginValidation, login);
 
 app.use(auth);
-
-app.use("/movies", movieRouter);
-app.use("/users", userRouter);
+app.use(router);
 app.post("/signout", logout);
-
-app.use(errorLogger);
 
 app.use("*", (req, res, next) => {
   next(new NotFoundError("Данной страницы не существует"));
 });
 
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({
-    message: statusCode === 500 ? "На сервере произошла ошибка" : message,
-  });
-});
+app.use(errorLogger);
+app.use(errorHandler);
 
 app.listen(PORT);

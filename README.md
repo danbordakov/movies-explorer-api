@@ -1,3 +1,3 @@
 # movies-explorer-api
 
-http://api.diploma.bordakov.nomoredomainswork.ru/
+https://api.diploma.bordakov.nomoredomainswork.ru/

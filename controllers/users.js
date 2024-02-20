@@ -20,10 +20,10 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.updateUser = (req, res, next) => {
-  const { name } = req.body;
+  const { name, email } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
-    { name },
+    { name, email },
     {
       runValidators: true,
       returnDocument: "after",
@@ -33,7 +33,7 @@ module.exports.updateUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError("Указан несуществующий ID пользователя");
       } else {
-        res.send({ name: user.name });
+        res.send({ name: user.name, email: user.email });
       }
     })
     .catch((err) => {
