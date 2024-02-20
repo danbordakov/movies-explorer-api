@@ -40,23 +40,6 @@ module.exports.postMyMovie = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-// module.exports.deleteMyMovie = (req, res, next) => {
-//   Movie.findByIdAndDelete(req.params.movieId)
-//     .then((movie) => res.send(movie))
-//     .catch((err) => next(err));
-// };
-
-// module.exports.deleteMyMovie = (req, res, next) => {
-//   Movie.findById(req.params.movieId)
-//     .then((movie) => {
-//        if (movie.owner.toString() === req.user._id) {
-
-//        }
-
-// })
-//     .catch((err) => next(err));
-// };
-
 module.exports.deleteMyMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {
