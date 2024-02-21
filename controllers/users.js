@@ -37,6 +37,9 @@ module.exports.updateUser = (req, res, next) => {
       }
     })
     .catch((err) => {
+      if (err.code === 11000) {
+        next(new ConflictError("Данные уже используются"));
+      }
       if (err instanceof mongoose.Error.ValidationError) {
         next(
           new BadRequestError(
