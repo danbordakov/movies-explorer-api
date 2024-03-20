@@ -21,7 +21,8 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      "https://api.diploma.bordakov.nomoredomainswork.ru",
+      "http://localhost:3000",
+      "https://diploma.bordakov.nomoredomainswork.ru",
     ],
     credentials: true,
   })
