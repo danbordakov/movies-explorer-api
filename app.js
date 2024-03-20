@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const { errors } = require("celebrate");
+const cors = require("cors");
 const router = require("./routes/index");
 const errorHandler = require("./modules/errorHandler");
 require("dotenv").config();
@@ -17,6 +18,14 @@ app.use(helmet());
 app.use(limiter);
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: [
+      "https://api.diploma.bordakov.nomoredomainswork.ru",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
