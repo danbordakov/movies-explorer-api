@@ -100,7 +100,7 @@ module.exports.login = async (req, res, next) => {
       maxAge: 604800000,
       httpOnly: true,
     });
-    return res.status(200).send({ message: "Вход выполнен успешно" });
+    return res.status(200).send(user.toJSON());
   } catch (err) {
     next(err);
   }
